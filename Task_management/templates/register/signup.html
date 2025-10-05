@@ -1,0 +1,30 @@
+{% extends 'register/login.html'%}
+{% block content %}
+    <div class="form_container">
+        <form action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <input id="text" type="text" name="first_name" placeholder="First Name"><br>
+            <input id="text" type="text" name="last_name" placeholder="Last Name"><br>
+            <input id="text" type="email" name="email" placeholder="Email"><br>
+            <input id="text" type="password" name="password1" placeholder="Password">            <br>
+            <input id="text" type="password" name="password2" placeholder="Confirm Password"><br>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            <input type="submit" name="submit" id="submit" value="Register"><br>
+        </form>
+        <hr>
+
+         <div>
+                <p>Already have an account?</p>
+                <a href="{% url 'login' %}" style="font-weight: bold;">Log In</a>
+        </div>
+        
+    </div>
+
+     <div style="margin:10px auto; width: 50%; text-align: center;">
+            <a href="{% url 'home' %}" style="font-weight: bold; padding: 10px; border-radius: 5px; background-color: rgb(231, 222, 222);">Go Home</a>
+        </div>
+{% endblock %}
