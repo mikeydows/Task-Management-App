@@ -1,0 +1,56 @@
+{% extends 'register/signup.html'}
+{% block content %}
+{% endblock %}
+
+<style>
+    .delete_container{
+        width: 30%;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 2px 0.7px;
+    }
+
+    .delete_container input{
+        background-color: rgb(1, 56, 1);
+        color: white;
+        padding: 5px;
+        border-radius: 3px;
+        transition: all 0.3s;
+        font-size: 1.1em;
+    }
+
+    .delete_container input:hover{
+        background-color: rgb(2, 88, 2);
+        color: white;
+        transition: all 0.3s;
+    }
+
+    .delete_container a{
+        background-color: rgb(219, 5, 5);
+        color: white;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 1.1em;
+        transition: all 0.3s;
+
+    }
+
+    .delete_container a:hover{
+        background-color: rgb(141, 5, 5);
+        transition: all 0.3s;
+    }
+</style>
+
+<div class="delete_container">
+    <h2>
+        <span style="color: red;">
+            Are you sure you want to delete
+        </span><br>
+        "{{ task.title }}"?
+    </h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+        <a href="{% url 'home' %}">Cancel</a>
+    </form>
+</div>

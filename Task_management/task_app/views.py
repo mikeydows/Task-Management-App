@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
@@ -90,3 +90,10 @@ def profile(request):
         p_form = ProfileUpdateForm(instance = request.user.profile)
     context = {"p_form": p_form}
     return render(request, "profile.html", context)
+
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id = task_id)
+    if request.method == "POST":
+        task.delete()
+        return redirect('home')
+    return render(request, 'delete_task.html', {"task":task})
