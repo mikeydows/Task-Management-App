@@ -51,11 +51,6 @@
     border-color: black     ;
 }
 
-.mainn{
-    width: 70%;
-    margin: 100px auto;
-    display: flex;
-}
 
 button{
     background-color: blue;
