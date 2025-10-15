@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+                <nav>
+                    <div class="logo">
+                        <h2>TaskPro</h2>
+                    </div>
+                    
+                    <ul>
+                        <li>
+                            <input id="search" type="search" placeholder="Search for task...">
+                        </li>
+                        
+                        <li>
+                            <div class="profile" style="display: flex; align-items: center;">
+                                {% if user.is_authenticated %}
+                                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; text-align: center;">
+                                    <a href="{% url 'profile' %}" style="color: black; background-color: transparent;"> {{ user.first_name }}</a>
+                                {% else %}
+                                    <a href="{% url 'login' %}">Login</a>
+                                    <a href="{% url 'signup' %}">SignUp</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+    </header>
+
+    <main>
+        <div class="mainn"
+        style="display: flex;
+                width: 70%;
+                margin: 100px auto;
+        " >
+
+            <div class="side_bar"
+                style="width: 20%;
+                        ">
+                <div class="container">
+                    <button id="todolist"
+                    style="background-color: rgb(41, 40, 40);
+                            color: white;
+                            font-weight: bold;
+                            font-size: 1em;
+                            padding: 5px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;">To-do-List</button><br>
+
+                    <button id="completed"
+                    style="background-color: rgb(41, 40, 40);
+                            color: white;
+                            font-weight: bold;
+                            font-size: 1em;
+                            padding: 5px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;">Completed</button><br>
+
+                    <button id="progress"
+                    style="background-color: rgb(41, 40, 40);
+                            color: white;
+                            font-weight: bold;
+                            font-size: 1em;
+                            padding: 5px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;">In Progress</button><br>
+                </div>
+            </div>
+
+            <div class="main">
+                <a href="{% url 'addtask' %}"
+                    style="background-color: rgb(31, 30, 30);
+                            color: white;
+                            font-weight: bold;
+                            border-radius: 5px;
+                            padding: 10px;
+                            text-decoration: none;
+                            position: absolute;
+                            top: 130px;
+                            right: 20%;">Add Task +</a>
+                        {% for task in tasks %}
+                            <div class="pages" 
+                                style="width: 766px;
+                                        border-radius: 10px;
+                                        background-color: rgb(238, 233, 233);
+                                        display: flex;
+                                        gap: 31em;
+                                        padding: 20px;
+                                        margin-bottom: 20px;
+                                        ">
+                                <div>
+                                    <strong>{{ task.title}}</strong><br>
+                                    <hr>
+                                    <p>{{ task.tasks }}</p> 
+                                    <div style="
+                                            width: 750px;
+                                            display: flex;
+                                            justify-content: end;">
+                                        <a href=""
+                                        style="
+                                            background-color: black;
+                                            color: white;
+                                            font-weight: bold;
+                                            padding: 5px;
+                                            border-radius: 5px;
+                                            text-decoration: none;
+                                            margin-right: 10px;
+                                            font-size: 0.8em;
+                                            ">Edit Task</a>
+
+                                        <a href=""
+                                        style="
+                                            background-color: black;
+                                            font-size: 0.8em;
+                                            color: white;
+                                            font-weight: bold;
+                                            padding: 5px;
+                                            border-radius: 5px;
+                                            text-decoration: none;
+                                            margin-right: 10px;">Delete Task</a>
+
+                                        <a href="" style="
+                                            background-color: black;
+                                            color: white;
+                                            font-weight: bold;
+                                            padding: 5px;
+                                            border-radius: 5px;
+                                            text-decoration: none;
+                                            font-size: 0.8em;
+
+                                            ">Completed</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="time">
+                                    <small>{{ task.date_created }}</small>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <h3>No task added</h3>
+                        {% endfor %}
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+
+<style>
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.login_page a{
+    text-decoration: none;
+    color: black;
+}
+
+
+.login_head{
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.form_container{
+    background-color: rgb(233, 227, 227);
+    margin: 100px auto;
+    text-align: center;
+    width: 30%;
+    border-radius: 10px;
+    border: solid black 1px;
+    padding: 70px 0;
+}
+
+.form_container form #text{
+    width: 50%;
+    background-color: transparent;
+    border: 2px solid rgb(80, 79, 79);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.form_container form #submit{
+    width: 55%;
+    border: 2px solid rgb(80, 79, 79);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: black;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+</style>
+<body class="login_page">
+    <header>
+        <div class="login_head">
+            <div class="login_logo">
+                <h2>TaskPro</h2>
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    <main>
+        <div class="form_container">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <input id="text" type="text" name="email" placeholder="Email"><br>
+                {% if messages %}  
+                    {% for message in messages %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                <input id="text" type="password" name="password" placeholder="Password"><br>
+
+                <input id="submit" type="submit" value="Submit">
+            </form>
+<hr>
+            <div>
+                <p>Don't have an account</p>
+                <a href="{% url 'signup' %}" style="font-weight: bold;">Create account</a>
+            </div>
+        </div>
+        
+        <div style="margin:10px auto; width: 50%; text-align: center;">
+            <a href="{% url 'home' %}" style="font-weight: bold; padding: 10px; border-radius: 5px; background-color: rgb(231, 222, 222);">Go Home</a>
+        </div>
+    </main>
+    {% endblock %}
+
+</body>
+</html>

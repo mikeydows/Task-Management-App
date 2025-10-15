@@ -1,0 +1,53 @@
+{% extends "register/signup.html"%}
+{% block content %}
+
+<style>
+    .profile{
+        background-color: rgb(241, 230, 230);
+        width: 50%;
+        border-radius: 5px;
+        margin: 10px auto;
+        padding: 30px;
+    }
+</style>
+<div class="profile">
+    <div class="name">
+        <div class="profile_img" style="text-align: center; margin: 10px auto;">
+            <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="150" height="150" style="border-radius: 50%; text-align: center;">
+        </div>
+        <h1 style="
+            text-align: center;">{{ user.first_name }} {{ user.last_name }}</h1>
+        <p style="text-align: center;">Email: {{ user.username }}</p>
+    </div>
+
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if user.profile.profile_image.url != '/media/default.jpg/'%}
+            <label for="">Add Profile Picture</label><br>
+            {% else %}
+            <label for="">Change Profile Picture</label><br>
+            {% endif %}
+            <input type="file" name="profile_image"><br>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+
+    <div>
+        <a href="">Change password</a><br>
+        <a href="">Change email</a>
+
+    </div>
+    <div style="margin: 50px auto;
+                width: 100%;
+                display: flex;
+                justify-content: center;">
+        <a style="text-align: center;
+        background-color: black;
+        color: white;
+        padding: 5px;
+        border-radius: 6px;
+        font-size: 1.1em;" href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}
