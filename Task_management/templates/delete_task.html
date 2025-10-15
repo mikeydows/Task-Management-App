@@ -1,6 +1,5 @@
-{% extends 'register/signup.html'}
+{% extends 'register/signup.html' %}
 {% block content %}
-{% endblock %}
 
 <style>
     .delete_container{
@@ -8,6 +7,8 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 2px 0.7px;
+        margin: 100px auto;
+        text-align: center;
     }
 
     .delete_container input{
@@ -17,6 +18,7 @@
         border-radius: 3px;
         transition: all 0.3s;
         font-size: 1.1em;
+        width: 50%;
     }
 
     .delete_container input:hover{
@@ -31,6 +33,7 @@
         padding: 5px;
         border-radius: 3px;
         font-size: 1.1em;
+        width: 50%;
         transition: all 0.3s;
 
     }
@@ -54,3 +57,4 @@
         <a href="{% url 'home' %}">Cancel</a>
     </form>
 </div>
+{% endblock %}

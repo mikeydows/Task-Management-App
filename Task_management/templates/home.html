@@ -47,32 +47,35 @@
                 style="width: 20%;
                         ">
                 <div class="container">
-                    <button id="todolist"
+                    <a href="{% url 'home' %}" id="todolist"
                     style="background-color: rgb(41, 40, 40);
                             color: white;
                             font-weight: bold;
                             font-size: 1em;
                             padding: 5px;
                             border-radius: 5px;
-                            margin-bottom: 20px;">To-do-List</button><br>
+                            margin-bottom: 20px;
+                            text-decoration: none;">To-do-List</a><br><br>
 
-                    <button id="completed"
+                    <a href="" id="completed"
                     style="background-color: rgb(41, 40, 40);
                             color: white;
                             font-weight: bold;
                             font-size: 1em;
                             padding: 5px;
                             border-radius: 5px;
-                            margin-bottom: 20px;">Completed</button><br>
+                            text-decoration: none;
+                            margin-bottom: 20px;">Completed</a><br><br>
 
-                    <button id="progress"
+                    <a href="" id="progress"
                     style="background-color: rgb(41, 40, 40);
                             color: white;
                             font-weight: bold;
                             font-size: 1em;
                             padding: 5px;
                             border-radius: 5px;
-                            margin-bottom: 20px;">In Progress</button><br>
+                            text-decoration: none;
+                            margin-bottom: 20px;">In Progress</a><br><br>
                 </div>
             </div>
 
@@ -117,7 +120,7 @@
                                             font-size: 0.8em;
                                             ">Edit Task</a>
 
-                                        <a href="{% url 'delete_task' %}"
+                                        <a href="{% url 'delete_task' task.id%}"
                                         style="
                                             background-color: black;
                                             font-size: 0.8em;
