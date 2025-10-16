@@ -1,0 +1,27 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+
+<style>
+    .container .task{
+        width: 70%;
+        margin: 70px auto;
+        background-color: rgb(228, 221, 221);
+    }
+</style>
+<div class="task_page">
+    <h2>✅ Completed Tasks</h2>
+{% for task in tasks %}
+    <div class="container">
+        
+        <div class="task">
+            <strong>{{ task.title }}</strong><br>
+            <small>{{ task.date_completed }}</small>
+            <p>{{ task.tasks }}</p>
+        </div>    
+    </div>
+     {% empty %}
+        <p>No completed tasks yet!</p>
+   {% endfor %} 
+</div>
+{% endblock %}

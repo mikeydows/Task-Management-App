@@ -96,8 +96,8 @@
         <div class="task_page">
             <div class="side_bar">
                 <div class="container">
-                    <a href="{% url 'home' %}" id="todolist">To-do-List</a>
-                    <a href="{% url 'completed' %}" id="completed">Completed</a>
+                    <a href="{% url 'home' %}">To-do-List</a>
+                    <a href="{% url 'completed_task' %}">Completed</a>
                     <a href="" id="progress">In Progress</a>
                 </div>
 
@@ -112,7 +112,8 @@
                                 <div class="task">
                                     <div class="top">
                                         <div class="title">
-                                            <strong>{{ task.title}}</strong><br>
+                                            <strong>
+                                                {{ task.title}}|<span style="color: grey;">{{ task.priority }}</span></strong><br>
                                         </div>
 
                                         <div class="time">
@@ -122,15 +123,24 @@
                     
                                     <hr>
                                     <p>{{ task.tasks }}</p> 
-
+ 
                                     <div class="container">
                                         <div>
-                                            <a href="">Edit Task</a>
-                                            <a href="{% url 'delete_task' task.id%}">Delete Task</a>
+                                            <a href="{% url 'edit_task' task.id %}">Edit Task</a>
+                                            <a href="{% url 'delete_task' task.id %}">Delete Task</a>
+                                            {% if not task.completed %}
+                                                <a href="{% url 'complete_task' task.id %}">Mark as Completed</a>
+                                            {% else %}
+                                                <span style="color: green; font-weight: bold;">Completed</span>
+                                            {% endif %}
                                         </div>
-                                        
 
+                                        <div class="progress">
+                                            <progress max="100" value="{{ task.progress }}"></progress>
+                                            {{ task.progress }}%
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                             

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from .models import Task
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm, TaskForm
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -74,7 +74,8 @@ def addtask(request):
         if request.user.is_authenticated:
             title = request.POST.get("title")
             tasks = request.POST.get("tasks")
-            Task.objects.create(user=request.user, title=title, tasks=tasks)
+            priority = request.POST.get("priority")
+            Task.objects.create(user=request.user, title=title, tasks=tasks, priority = priority)
             return redirect('home')
         else:
             return redirect('login')
@@ -107,5 +108,24 @@ def delete_task(request, task_id):
         return redirect('home')
     return render(request, 'delete_task.html', {"task":task})
 
-def completed(request):
-    return render(request, 'completed.html')
+def complete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user = request.user)  # ✅ Fix: use Task (capital T)
+    task.completed = True
+    task.progress = 100
+    task.save()
+    return redirect('home')
+
+def completed_task(request):
+    completed = Task.objects.filter(user = request.user, completed=True)
+    return render(request, 'completed_task.html', {'tasks': completed})
+
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = TaskForm(instance = task)
+    return render(request, "task_form.html", {"form": form, 'edit': True})

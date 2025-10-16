@@ -62,7 +62,8 @@
                     
                     <ul>
                         <li>
-                            <input id="search" type="search" placeholder="Search for task...">
+                            <input id="search" type="text" placeholder="Search for task..." name="q" value="{{ request.GET.q }}">
+                            <input type="submit" value="Search">
                         </li>
                         
                         <li>
