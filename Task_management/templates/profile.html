@@ -4,23 +4,46 @@
 <style>
     .profile{
         background-color: rgb(241, 230, 230);
-        width: 50%;
+        width: 30%;
         border-radius: 5px;
         margin: 10px auto;
         padding: 30px;
     }
+
+    .circle{
+        color: white;
+        background-color: grey;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+    }
+
+    .name{
+        text-align: center;
+    }
+
+    .name h1, p{
+        margin: 0;
+    }
 </style>
 <div class="profile">
     <div class="name">
-        <div class="profile_img" style="text-align: center; margin: 10px auto;">
-            <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="150" height="150" style="border-radius: 50%; text-align: center;">
+        <div class="profile_img">
+            {% if user.profile.profile_image.url != '/media/default.jpg/' %}
+            <div class="circle">Profile Image</div>
+            {% else %}
+            <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="150" height="150">
+            {% endif %}
         </div>
-        <h1 style="
-            text-align: center;">{{ user.first_name }} {{ user.last_name }}</h1>
-        <p style="text-align: center;">Email: {{ user.username }}</p>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <p>Email: {{ user.username }}</p>
     </div>
 
-    <div>
+    <div class="form">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% if user.profile.profile_image.url != '/media/default.jpg/'%}
@@ -38,20 +61,12 @@
         <a href="">Change email</a>
 
     </div>
-    <div style="margin: 50px auto;
-                width: 100%;
-                display: flex;
-                justify-content: center;">
-        <a style="text-align: center;
-        background-color: black;
-        color: white;
-        padding: 5px;
-        border-radius: 6px;
-        font-size: 1.1em;" href="{% url 'logout' %}">Logout</a>
+    <div>
+        <a href="{% url 'logout' %}">Logout</a>
     </div>
 
     <div class="home">
-                    <a href="{% url 'home' %}">Go Home</a>
-                </div>
+       <a href="{% url 'home' %}">Go Home</a>
+    </div>
 </div>
 {% endblock %}

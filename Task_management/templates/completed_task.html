@@ -4,21 +4,57 @@
 
 <style>
     .container .task{
-        width: 70%;
-        margin: 70px auto;
         background-color: rgb(228, 221, 221);
+        padding: 30px;
+        margin: 50px auto;
+        border-radius: 5px;
+        width: 70%;
+    }
+
+    .container .task .completed{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container .task .title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .task_page h2{
+        text-align: center;
     }
 </style>
 <div class="task_page">
     <h2>✅ Completed Tasks</h2>
 {% for task in tasks %}
     <div class="container">
-        
         <div class="task">
-            <strong>{{ task.title }}</strong><br>
-            <small>{{ task.date_completed }}</small>
-            <p>{{ task.tasks }}</p>
-        </div>    
+            <div class="title">
+                <strong>{{ task.title }}</strong><br>
+                <small>{{ task.date_completed }}</small>
+            </div>
+            <hr>
+            <div class="tasks">
+                <p>{{ task.tasks }}</p>
+            </div>
+
+            <div class="completed">
+                <div>
+                    <a id="deletebtn" href="{% url 'delete_task' task.id %}">Delete Completed Task</a>
+                {% if not task.completed %}
+                    <a href="{% url 'complete_task' task.id %}">Mark as Completed</a>
+                {% else %}
+                    <span style="color: green; font-weight: bold;">Completed</span>
+                {% endif %}
+                </div>
+
+                <div>
+                <progress max="100" value="{{ task.progress }}"> </progress>{{ task.progress }}% 
+                </div>
+            </div>
+        </div> 
     </div>
      {% empty %}
         <p>No completed tasks yet!</p>
