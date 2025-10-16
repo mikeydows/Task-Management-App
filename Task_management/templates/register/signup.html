@@ -3,11 +3,14 @@
     <div class="form_container">
         <form action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
-            <input id="text" type="text" name="first_name" placeholder="First Name"><br>
-            <input id="text" type="text" name="last_name" placeholder="Last Name"><br>
-            <input id="text" type="email" name="email" placeholder="Email"><br>
-            <input id="text" type="password" name="password1" placeholder="Password">            <br>
-            <input id="text" type="password" name="password2" placeholder="Confirm Password"><br>
+            <h1>Welcome</h1>
+            <h3>Sign Up to start</h3>
+
+            <input id="text" type="text" name="first_name" placeholder="First Name" required><br>
+            <input id="text" type="text" name="last_name" placeholder="Last Name" required><br>
+            <input id="text" type="email" name="email" placeholder="Email" required><br>
+            <input id="text" type="password" name="password1" placeholder="Password" required>            <br>
+            <input id="text" type="password" name="password2" placeholder="Confirm Password" required><br>
                 {% if messages %}
                     {% for message in messages %}
                         <p style="color: red;">{{ message }}</p>
@@ -15,16 +18,23 @@
                 {% endif %}
             <input type="submit" name="submit" id="submit" value="Register"><br>
         </form>
-        <hr>
+        <div class="signup">
+                <div class="user">
+                    <h1>Hello User</h1>
+                    <p>Taskpro helps to store and manage your task effectively</p>
+                </div>
 
-         <div>
-                <p>Already have an account?</p>
-                <a href="{% url 'login' %}" style="font-weight: bold;">Log In</a>
-        </div>
+                <div class="details">
+                    <p>Already have an account<br>
+                    <a href="{% url 'login' %}">Login</a>
+                    </p>
+                </div>
+                
+                <div class="home">
+                    <a href="{% url 'home' %}">Go Home</a>
+                </div>
+            </div>
         
     </div>
 
-     <div style="margin:10px auto; width: 50%; text-align: center;">
-            <a href="{% url 'home' %}" style="font-weight: bold; padding: 10px; border-radius: 5px; background-color: rgb(231, 222, 222);">Go Home</a>
-        </div>
 {% endblock %}

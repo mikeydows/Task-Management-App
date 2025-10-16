@@ -12,9 +12,10 @@
 *{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 .login_page a{
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 
@@ -26,35 +27,74 @@
 }
 
 .form_container{
-    background-color: rgb(233, 227, 227);
+    display: flex;
+    width: 50%;
     margin: 100px auto;
-    text-align: center;
-    width: 30%;
-    border-radius: 10px;
-    border: solid black 1px;
-    padding: 70px 0;
 }
 
-.form_container form #text{
-    width: 50%;
+.form_container form{
+    width: 100%;
+    text-align: center;
+    background-color: rgb(240, 230, 230);
+    padding: 30px;
+}
+
+.form_container .signup{
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    padding: 30px;
+    color: white;
+}
+
+.form_container form input{
     background-color: transparent;
-    border: 2px solid rgb(80, 79, 79);
-    border-radius: 5px;
+    border: 2px solid black;
     padding: 10px;
+    border-radius: 5px;
+    width: 70%;
     margin-bottom: 20px;
 }
 
 .form_container form #submit{
-    width: 55%;
-    border: 2px solid rgb(80, 79, 79);
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
     background-color: black;
     color: white;
-    font-size: 1em;
     font-weight: bold;
+    font-size: 1em;
+    width: 245px;
+}
+
+.form_container form #submit:hover{
+    background-color: white;
+    color: black;
     cursor: pointer;
+}
+
+.form_container form label{
+    text-align: left;
+}
+
+.form_container form h1{
+    margin-bottom: 0;
+}
+
+.form_container .signup .home a{
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    padding: 10px 70px;
+    border-radius: 5px;
+}
+
+.form_container .signup .home a:hover{
+    background-color: rgb(211, 201, 201);
+}
+.signup .details a:hover{
+    text-decoration: underline;
+}
+
+.signup .details, .user{
+    margin-bottom: 50px;
 }
 
 </style>
@@ -71,27 +111,41 @@
         <div class="form_container">
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
+                <h1>Welcome</h1>
+                <h3>Log in to continue</h3>
 
+                <label for="email">Email:</label><br>
                 <input id="text" type="text" name="email" placeholder="Email"><br>
                 {% if messages %}  
                     {% for message in messages %}
                         <p style="color: red;">{{ message }}</p>
                     {% endfor %}
                 {% endif %}
+
+                <label for="password">Password:</label><br>
                 <input id="text" type="password" name="password" placeholder="Password"><br>
 
-                <input id="submit" type="submit" value="Submit">
+                <input id="submit" type="submit" value="Log In">
             </form>
-<hr>
-            <div>
-                <p>Don't have an account</p>
-                <a href="{% url 'signup' %}" style="font-weight: bold;">Create account</a>
+            <div class="signup">
+                <div class="user">
+                    <h1>Hello User</h1>
+                    <p>Taskpro helps to store and manage your task effectively</p>
+                </div>
+
+                <div class="details">
+                    <p>Don't have an account<br>
+                    <a href="{% url 'signup' %}">Create account</a>
+                    </p>
+                </div>
+                
+                <div class="home">
+                    <a href="{% url 'home' %}">Go Home</a>
+                </div>
             </div>
         </div>
         
-        <div style="margin:10px auto; width: 50%; text-align: center;">
-            <a href="{% url 'home' %}" style="font-weight: bold; padding: 10px; border-radius: 5px; background-color: rgb(231, 222, 222);">Go Home</a>
-        </div>
+        
     </main>
     {% endblock %}
 

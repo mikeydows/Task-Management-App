@@ -6,16 +6,10 @@ from .models import Task
 from .forms import ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 
-def home(request, task_id):
+def home(request):
     tasks = []
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user)
-
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == "POST":
-        Task.objects.get_or_create(user = request.user, created = True)
-        task.save()
-        return redirect('home')
     return render(request, 'home.html', {'tasks': tasks})
 
 def signupPage(request):
@@ -25,6 +19,15 @@ def signupPage(request):
         password2 = request.POST.get("password2")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+
+        if first_name is None:
+            messages.error(request, "Enter your first name")
+            return redirect('signup')
+
+        elif last_name is None:
+            messages.error(request, "Enter your last name")
+            return redirect('signup')
+
 
         if password1 != password2:
             messages.error(request, "Passwords don’t match.")
@@ -104,6 +107,5 @@ def delete_task(request, task_id):
         return redirect('home')
     return render(request, 'delete_task.html', {"task":task})
 
-def completed(request, task_id):
-    
+def completed(request):
     return render(request, 'completed.html')
