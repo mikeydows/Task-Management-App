@@ -6,10 +6,16 @@ from .models import Task
 from .forms import ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 
-def home(request):
+def home(request, task_id):
     tasks = []
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user)
+
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST":
+        Task.objects.get_or_create(user = request.user, created = True)
+        task.save()
+        return redirect('home')
     return render(request, 'home.html', {'tasks': tasks})
 
 def signupPage(request):
@@ -97,3 +103,7 @@ def delete_task(request, task_id):
         task.delete()
         return redirect('home')
     return render(request, 'delete_task.html', {"task":task})
+
+def completed(request, task_id):
+    
+    return render(request, 'completed.html')

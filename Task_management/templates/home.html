@@ -1,3 +1,4 @@
+{% include 'navbar.html'%}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,8 @@
 <style>
     .task_page{
         width: 70%;
-        margin: 70px auto;
+        margin: 100px auto;
+        padding: 50px;
     }
 
     .side_bar{
@@ -34,35 +36,60 @@
         transition: linear 0.1s;
         background-color: rgb(95, 93, 93);
     }
+
+    .task .top{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .task .top .time{
+        background-color: rgb(245, 240, 240);
+        padding: 4px;
+        border-radius: 5px;
+        border: 0.5px solid rgb(192, 188, 188);
+        color: rgb(90, 87, 87);
+    }
+
+    .pages .task {
+        background-color: rgb(228, 221, 221);
+        padding: 30px;
+        margin-bottom: 50px;
+        border-radius: 5px;
+    }
+
+    .task .container a{
+        color: white;
+        text-decoration: none;
+        background-color: grey;
+        padding: 5px;
+        border-radius: 4px;
+        margin-right: 5px;
+        font-size: 1em;
+
+    }
+
+    .task .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .task .container input{
+        color: white;
+        text-decoration: none;
+        background-color: grey;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+    }
 </style>
 
 <body>
     <header>
-        <div class="navbar">
-                <nav>
-                    <div class="logo">
-                        <h2>TaskPro</h2>
-                    </div>
-                    
-                    <ul>
-                        <li>
-                            <input id="search" type="search" placeholder="Search for task...">
-                        </li>
-                        
-                        <li>
-                            <div class="profile" style="display: flex; align-items: center;">
-                                {% if user.is_authenticated %}
-                                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; text-align: center;">
-                                    <a href="{% url 'profile' %}" style="color: black; background-color: transparent;"> {{ user.first_name }}</a>
-                                {% else %}
-                                    <a href="{% url 'login' %}">Login</a>
-                                    <a href="{% url 'signup' %}">SignUp</a>
-                                {% endif %}
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        {% block content %}
+        {% endblock %}
     </header>
 
     <main>
@@ -70,7 +97,7 @@
             <div class="side_bar">
                 <div class="container">
                     <a href="{% url 'home' %}" id="todolist">To-do-List</a>
-                    <a href="" id="completed">Completed</a>
+                    <a href="{% url 'completed' %}" id="completed">Completed</a>
                     <a href="" id="progress">In Progress</a>
                 </div>
 
@@ -80,23 +107,34 @@
             </div>
 
             <div class="main">
-                
-
                         {% for task in tasks %}
                             <div class="pages">
                                 <div class="task">
-                                    <strong>{{ task.title}}</strong><br>
+                                    <div class="top">
+                                        <div class="title">
+                                            <strong>{{ task.title}}</strong><br>
+                                        </div>
+
+                                        <div class="time">
+                                            <small>{{ task.date_created }}</small>
+                                        </div>
+                                    </div>
+                    
                                     <hr>
                                     <p>{{ task.tasks }}</p> 
-                                    <div>
-                                        <a href="">Edit Task</a>
-                                        <a href="{% url 'delete_task' task.id%}">Delete Task</a>
-                                        <a href="">Mark as Completed</a>
+
+                                    <div class="container">
+                                        <div>
+                                            <a href="">Edit Task</a>
+                                            <a href="{% url 'delete_task' task.id%}">Delete Task</a>
+                                        </div>
+                                        
+
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" value = "Mark as completed">   
+                                        </form>
                                     </div>
-                                </div>
-                                
-                                <div class="time">
-                                    <small>{{ task.date_created }}</small>
                                 </div>
                             </div>
                             
