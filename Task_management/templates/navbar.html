@@ -1,49 +1,9 @@
 <style>
     *{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.navbar nav ul li{
-    list-style-type: none;
-}
+    }
 
-.navbar nav ul{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.navbar nav{
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.navbar nav ul li a:last-child{
-    color: rgb(255, 255, 255);
-    font-size: 1em;
-    background-color: rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    margin-left: 5px;
-}
-
-.navbar nav ul li a:first-child{
-    font-size: 1em;
-    text-decoration: none;
-    color: black;
-}
-
-.navbar nav ul{
-    width: 30%;
-}
-
-.logo{
-    width: 60%;
-}
 
 #search{
     background-color: transparent;
@@ -58,12 +18,61 @@
     align-items: center;
 }
 
- @media(max-width: 600px){
-        .navbar{
-            width: 70%;
+nav{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0px auto;
+}
+
+nav ul{
+    display: flex;
+    gap: 3em;
+}
+
+nav ul li{
+    list-style-type: none;
+}
+
+#sign{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: linear 0.3s;
+    margin-left: 5px;
+}
+
+#sign:hover{
+    transition: linear 0.3s;
+    background-color: rgb(82, 79, 79);
+}
+
+#log, #profile{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-left: 5px;
+}
+
+#log:hover{
+    text-decoration: underline;
+    transition: all 0.3s;
+}
+
+ @media(max-width: 800px){
+        nav{
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 0;
+            backdrop-filter: blur(5px);
         }
         .navbar ul li:first-child{
-            visibility: hidden;
+            display: none;
         }
 
         nav{
@@ -95,10 +104,10 @@
                 <div class="profile">
                     {% if user.is_authenticated %}
                         <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; text-align: center;">
-                        <a href="{% url 'profile' %}" style="color: black; background-color: transparent;"> {{ user.first_name }}</a>
+                        <a id="profile" href="{% url 'profile' %}" style="color: black; background-color: transparent;"> {{ user.first_name }}</a>
                     {% else %}
-                        <a href="{% url 'login' %}">Login</a>
-                        <a href="{% url 'signup' %}">SignUp</a>
+                        <a id="log" href="{% url 'login' %}">Login</a>
+                        <a id="sign" href="{% url 'signup' %}">SignUp</a>
                     {% endif %}
                 </div>
             </li>
