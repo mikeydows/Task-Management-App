@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from .models import Task
-from .forms import ProfileUpdateForm, TaskForm
+from .forms import ProfileUpdateForm, TaskForm, UpdateEmailForm
 from django.contrib.auth.decorators import login_required
+import os
 
 def home(request):
     tasks = []
@@ -129,3 +130,48 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance = task)
     return render(request, "task_form.html", {"form": form, 'edit': True})
+
+@login_required
+def change_email(request):
+    if request.method == "POST":
+        new_email = request.POST.get('email')
+        if new_email:
+            request.user.email = new_email
+            request.user.save()
+            return redirect('profile')
+    return render(request, 'change_email.html')
+
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        new_password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+
+        if new_password == confirm_password:
+            request.user.password = new_password
+            request.user.save()
+            update_session_auth_hash(request, request.user)
+            return redirect('profile')
+        else:
+            messages.error(request, "Passwords do not match")
+    return render(request, 'change_password.html')
+
+@login_required
+def remove_profile_picture(request):
+    if request.user.profile.picture:
+        picture_path = request.user.profile.picture.path
+        if os.path.exists(picture_path):
+            os.remove(picture_path)
+        request.user.profile.picture = None
+        request.user.profile.save()
+    return redirect('profile')
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        user = request.user
+        user.delete()
+        return redirect("home")
+    return render(request, 'delete_account.html')
+        

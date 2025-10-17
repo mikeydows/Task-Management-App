@@ -1,0 +1,6 @@
+<h2>Change Email</h2>
+<form method="post">
+  {% csrf_token %}
+  <input type="email" name="email" placeholder="New email" required>
+  <button type="submit">Update Email</button>
+</form>
