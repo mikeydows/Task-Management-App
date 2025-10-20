@@ -1,6 +1,68 @@
-<h2>Change Email</h2>
-<form method="post">
-  {% csrf_token %}
-  <input type="email" name="email" placeholder="New email" required>
-  <button type="submit">Update Email</button>
-</form>
+{% extends 'register/signup.html' %}
+
+{% block content %}
+
+<style>
+  .email{
+    width: 40%;
+    margin: 70px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0.7px;
+    padding: 10px;
+    text-align: center;
+  }
+
+   form{
+    margin-bottom: 20px;
+  }
+
+  form input{
+    width: 60%;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid black;
+    margin-bottom: 10px;
+  }
+
+  form button{
+    width: 36%;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: rgb(255, 255, 255);
+    background-color: green;
+    font-size: 0.9;
+  }
+
+  form a{
+    color: white;
+    background-color: red;
+    width: 60%;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+
+  @media(max-width: 800px){
+    .email{
+      width: 70%;
+    }
+  }
+</style>
+
+<div class="email">
+  <h2>Change Email</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="New email" required><br>
+    <button type="submit">Confirm</button>
+    <a href="{% url 'profile' %}">Cancel Changes</a>
+  </form>
+</div>
+{% endblock %}

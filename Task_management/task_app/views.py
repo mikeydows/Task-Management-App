@@ -113,6 +113,7 @@ def complete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id, user = request.user)  # ✅ Fix: use Task (capital T)
     task.completed = True
     task.progress = 100
+    task.date_completed = timezone.now()
     task.save()
     return redirect('home')
 
@@ -175,3 +176,18 @@ def delete_account(request):
         return redirect("home")
     return render(request, 'delete_account.html')
         
+
+def progress(request):
+    in_progress = Task.objects.filter(
+        user=request.user,
+        completed=False,
+        progress__gt=0,   
+        progress__lt=100  
+    )
+    return render(request, 'progress.html', {'tasks': in_progress})
+
+def start_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user = request.user)
+    task.progress = 50
+    task.save()
+    return redirect('home')

@@ -16,28 +16,7 @@
         padding: 50px;
     }
 
-    .side_bar{
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 50px;
-        align-items: center;
-    }
-
-    .side_bar a{
-        color: white;
-        background-color: black;
-        text-decoration: none;
-        padding: 10px;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: linear 0.3s;
-    }
-
-    .side_bar a:hover{
-        transition: linear 0.1s;
-        background-color: rgb(95, 93, 93);
-    }
-
+    
     .task .top{
         display: flex;
         justify-content: space-between;
@@ -107,7 +86,7 @@
         display: none;
     }
 
-    @media(max-width: 800px){
+    @media(max-width: 850px){
         .task_page{
              width: 80%;
              scrollbar-width: none;
@@ -208,18 +187,7 @@
 
     <main>
         <div class="task_page">
-            <div class="side_bar">
-                <div class="container">
-                    <a href="{% url 'home' %}">To-do-List</a>
-                    <a href="{% url 'completed_task' %}">Completed</a>
-                    <a href="" id="progress">In Progress</a>
-                </div>
-
-                <div class="task_add">
-                    <a href="{% url 'addtask' %}"> <p>Add Task </p><h3>  + </h3></a>
-                </div>
-            </div>
-
+            {% include 'top_page.html'%}
             <div class="main">
                         {% for task in tasks %}
                             <div class="pages">
@@ -239,18 +207,24 @@
  
                                     <div class="container">
                                         <div class="links">
-                                            <a href="{% url 'edit_task' task.id %}"><span id="span">Edit Task </span> <img src="{% static 'icons/pen.svg'%}" id="pen"> </a>
-                                            <a href="{% url 'delete_task' task.id %}"><span id="span">Delete Task</span><img src="{% static 'icons/trash.svg' %}" id="trash" alt=""></a>
                                             {% if not task.completed %}
+                                                <a href="{% url 'edit_task' task.id %}"><span id="span">Edit Task </span> <img src="{% static 'icons/pen.svg'%}" id="pen"> </a>
+                                                <a href="{% url 'delete_task' task.id %}"><span id="span">Delete Task</span><img src="{% static 'icons/trash.svg' %}" id="trash" alt=""></a>    
                                                 <a href="{% url 'complete_task' task.id %}"><span id="span">Mark as Completed</span><svg xmlns="http://www.w3.org/2000/svg"  width="20" viewBox="0 0 640 640"><path fill="#349b08" d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"/></svg></a>
                                             {% else %}
+                                                <a href="{% url 'delete_task' task.id %}"><span id="span">Delete Completed Task</span><img src="{% static 'icons/trash.svg' %}" id="trash" alt=""></a>    
                                                 <span><span style="color: green; font-weight: bold;" id="span">Completed</span><svg id="complete" xmlns="http://www.w3.org/2000/svg"  width="120" viewBox="0 0 640 640"><path fill="#228c0d" d="M480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM438 209.7C427.3 201.9 412.3 204.3 404.5 215L285.1 379.2L233 327.1C223.6 317.7 208.4 317.7 199.1 327.1C189.8 336.5 189.7 351.7 199.1 361L271.1 433C276.1 438 283 440.5 289.9 440C296.8 439.5 303.3 435.9 307.4 430.2L443.3 243.2C451.1 232.5 448.7 217.5 438 209.7z"/></svg></span>
                                             {% endif %}
                                         </div>
 
                                         <div class="progress">
+                                            {% if not task.completed %}
                                             <progress max="100" value="{{ task.progress }}"></progress>
                                             {{ task.progress }}%
+                                            {% else%}
+                                            <progress max="100" value="100"></progress>
+                                            100%
+                                            {% endif %}
                                         </div>
                                     </div>
 

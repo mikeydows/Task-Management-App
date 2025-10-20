@@ -1,14 +1,19 @@
+{% load static %}
 {% include 'navbar.html' %}
 
 {% block content %}
 
 <style>
+    .task_page{
+        width: 70%;
+        margin: 30px auto;
+    }
+    
     .container .task{
         background-color: rgb(228, 221, 221);
         padding: 30px;
         margin: 50px auto;
         border-radius: 5px;
-        width: 70%;
     }
 
     .container .task .completed{
@@ -25,15 +30,106 @@
     .task_page h2{
         text-align: center;
     }
+
+    #trash{
+        display: none;
+    }
+
+    .ccc a{
+        color: white;
+        text-decoration: none;
+        background-color: grey;
+        padding: 5px;
+        border-radius: 4px;
+        margin-right: 5px;
+        font-size: 1em;
+    }
+
+    #complete{
+        display: none;
+    }
+    .container .title .time{
+        background-color: rgb(245, 240, 240);
+        padding: 4px;
+        border-radius: 5px;
+        border: 0.5px solid rgb(192, 188, 188);
+        color: rgb(90, 87, 87);
+    }
+
+
+    @media(max-width: 850px){
+        .task_page{
+            margin-top: 90px;
+            width: 80%;
+        }
+
+         #trash{
+            display: block;
+            width: 20px;
+            color: red;
+            filter: invert(50%) sepia(100%) saturate(3000%);
+        }
+
+        .ccc a{
+            background-color: transparent;
+        }
+
+        #span{
+            display: none;
+        }
+        #complete{
+            width: 40px;
+            display: block;
+        }
+
+        .completed{
+            width: 90%;
+            display: flex;
+        }
+
+        .completed .aaa{
+            width: 40%;
+        }
+
+        .completed .ccc{
+            width: 60%;
+            display: flex;
+            align-items: center;
+        }
+
+        .container .task .completed{
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .time{
+            background-color: transparent;
+            border: none;
+            width:30%;
+        }
+
+        .time small{
+            font-size: 0.7em;
+        }
+    }
 </style>
+
+
+
 <div class="task_page">
     <h2>✅ Completed Tasks</h2>
+    {% include 'top_page.html'%}
 {% for task in tasks %}
     <div class="container">
         <div class="task">
             <div class="title">
-                <strong>{{ task.title }}</strong><br>
-                <small>{{ task.date_completed }}</small>
+                <div class="top_title">
+                    <strong>{{ task.title }}</strong><br>
+                </div>
+
+                <div class="time">
+                    <small>{{ task.date_completed }}</small>
+                </div>
             </div>
             <hr>
             <div class="tasks">
@@ -41,17 +137,13 @@
             </div>
 
             <div class="completed">
-                <div>
-                    <a id="deletebtn" href="{% url 'delete_task' task.id %}">Delete Completed Task</a>
-                {% if not task.completed %}
-                    <a href="{% url 'complete_task' task.id %}">Mark as Completed</a>
-                {% else %}
-                    <span style="color: green; font-weight: bold;">Completed</span>
-                {% endif %}
+                <div class="ccc">
+                    <a href="{% url 'delete_task' task.id %}"><span id="span">Delete Completed Task</span><img src="{% static 'icons/trash.svg' %}" id="trash" alt=""></a>
+                    <span><span style="color: green; font-weight: bold;" id="span">Completed</span><svg id="complete" xmlns="http://www.w3.org/2000/svg"  width="120" viewBox="0 0 640 640"><path fill="#228c0d" d="M480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM438 209.7C427.3 201.9 412.3 204.3 404.5 215L285.1 379.2L233 327.1C223.6 317.7 208.4 317.7 199.1 327.1C189.8 336.5 189.7 351.7 199.1 361L271.1 433C276.1 438 283 440.5 289.9 440C296.8 439.5 303.3 435.9 307.4 430.2L443.3 243.2C451.1 232.5 448.7 217.5 438 209.7z"/></svg></span>
                 </div>
 
-                <div>
-                <progress max="100" value="{{ task.progress }}"> </progress>{{ task.progress }}% 
+                <div class="aaa">
+                <progress max="100" value="100"> </progress>100% 
                 </div>
             </div>
         </div> 
@@ -60,4 +152,6 @@
         <p>No completed tasks yet!</p>
    {% endfor %} 
 </div>
+
+
 {% endblock %}

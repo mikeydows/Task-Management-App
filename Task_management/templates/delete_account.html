@@ -1,6 +1,47 @@
-<h2>Delete Account</h2>
-<p>Are you sure you want to delete your account? This action cannot be undone.</p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" style="background:red; color:white;">Delete My Account</button>
-</form>
+{% extends 'register/signup.html' %}
+
+{% block content %}
+
+<style>
+  .delete{
+    width: 40%;
+    border-radius: 5px;
+    box-shadow: 0 0 4px 1px;
+    padding: 10px;
+    text-align: center;
+    margin: 70px auto;
+  }
+
+  form{
+    margin-bottom: 20px;
+  }
+
+  form button, form a{
+    width: 50%;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  @media(max-width: 800px){
+    .delete{
+      width: 70%;
+    }
+  }
+</style>
+
+<div class="delete">
+  <h2>Delete Account</h2>
+  <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background:rgb(4, 156, 12); color:white;">Confirm</button>
+    <a href="{% url 'profile' %}" style="background-color: red;">Cancel</a>
+  </form>
+</div>
+{% endblock %}

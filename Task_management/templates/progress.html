@@ -1,0 +1,63 @@
+{% include 'navbar.html'%}
+
+{% load static %}
+
+<style>
+
+    main{
+        width: 70%;
+        margin: 70px auto;
+    }
+    @media(max-width: 850px){
+
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        {% block content %}
+        {% endblock %}
+    </header>
+
+    <main>
+        <div class="header">
+            {% include 'top_page.html' %}
+        </div>
+
+        <div class="progress">
+            <h2 class="text-center mt-4">Tasks In Progress</h2>
+
+
+<h2 class="text-center mt-4">Tasks in Progress</h2>
+
+{% if tasks %}
+  <div class="container mt-4">
+    {% for task in tasks %}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ task.title }}</h5>
+          <p class="card-text">{{ task.tasks }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Date Created:</strong> {{ task.date_created|date:"M d, Y H:i" }}</p>
+
+          <a href="{% url 'complete_task' task.id %}" class="btn btn-success">Mark Complete</a>
+          <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-center mt-4">No tasks currently in progress.</p>
+{% endif %}
+
+
+        </div>
+    </main>
+</body>
+</html>

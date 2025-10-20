@@ -7,12 +7,13 @@ class Task(models.Model):
         ("Medium", "Medium"),
         ("High", "High"),
     ]
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     tasks = models.TextField(max_length=300)
     date_created = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
-    date_completed = models.DateTimeField(auto_now_add = True, null = True)
+    date_completed = models.DateTimeField( null = True, blank = True)
     progress = models.IntegerField(default = 0)
     priority = models.CharField(
         max_length=20, 

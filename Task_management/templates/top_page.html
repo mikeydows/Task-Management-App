@@ -1,0 +1,79 @@
+<style>
+    .side_bar{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        align-items: center;
+    }
+
+    .side_bar a{
+        color: white;
+        background-color: black;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: linear 0.3s;
+    }
+
+    .side_bar a:hover{
+        transition: linear 0.1s;
+        background-color: rgb(95, 93, 93);
+    }
+
+    .task_add a{
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0 10px;
+    }
+
+    .task_add a h3, .task_app p{
+        margin: 0;
+        padding: 0;
+
+    }
+
+    @media (max-width: 800px){
+        .task_add{
+            position: fixed;
+            right: 60px;
+            bottom: 100px;
+        }
+
+        .task_add a p{
+            display: none;
+        }
+
+        .task_add a h3{
+            font-size: 2em;
+        }
+
+        .task_add a{
+            border-radius: 50%;
+            background-color: black;
+            padding: 10px 15px;
+            gap: 0;
+        }
+
+        .side_bar .container{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+    }
+
+</style>
+
+<div class="side_bar">
+    <div class="container">
+        <a href="{% url 'home' %}">To-do-List</a>
+        <a href="{% url 'completed_task' %}">Completed</a>
+        <a href="{% url 'progress' %}" id="progress">In Progress</a>
+    </div>
+
+    <div class="task_add">
+        <a href="{% url 'addtask' %}"> <p>Add Task </p><h3>  + </h3></a>
+    </div>
+</div>
