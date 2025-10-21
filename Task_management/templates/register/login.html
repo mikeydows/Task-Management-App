@@ -97,6 +97,40 @@
     margin-bottom: 50px;
 }
 
+form #submit{
+    width: 70%;
+}
+
+.linkk{
+    display: none;
+}
+
+@media(max-width:850px){
+    .signup{
+        display: none;
+    }
+    
+    .form_container{
+        width: 80%;
+    }
+    .linkk{
+        display: block;
+        width: 75%; 
+        gap: 1em;
+        margin: 10px auto;
+        display: flex;
+    }
+
+    .linkk a{
+        background-color: rgb(36, 35, 35);
+        transition: all 0.1s;
+        padding: 7px;
+        border-radius: 2px;
+        width: 45%;
+        font-size: 0.8em;
+    }
+}
+
 </style>
 <body class="login_page">
     <header>
@@ -115,7 +149,7 @@
                 <h3>Log in to continue</h3>
 
                 <label for="email">Email:</label><br>
-                <input id="text" type="text" name="email" placeholder="Email"><br>
+                <input autocomplete="off" id="text" type="text" name="email" placeholder="Email"><br>
                 {% if messages %}  
                     {% for message in messages %}
                         <p style="color: red;">{{ message }}</p>
@@ -123,9 +157,16 @@
                 {% endif %}
 
                 <label for="password">Password:</label><br>
-                <input id="text" type="password" name="password" placeholder="Password"><br>
+                <input id="text" type="password" name="password" placeholder="Password" autocomplete="new-password"><br>
 
-                <input id="submit" type="submit" value="Log In">
+                <input id="submit" type="submit" value="Log In"><br>
+
+                <div class="linkk">
+                    <a href="{% url 'home' %}">Go Home</a>
+                    <a href="{% url 'signup' %}">Create account</a>
+                </div>
+
+
             </form>
             <div class="signup">
                 <div class="user">

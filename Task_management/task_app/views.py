@@ -6,12 +6,16 @@ from .models import Task
 from .forms import ProfileUpdateForm, TaskForm, UpdateEmailForm
 from django.contrib.auth.decorators import login_required
 import os
+from django.utils import timezone
+
 
 def home(request):
     tasks = []
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user)
-    return render(request, 'home.html', {'tasks': tasks})
+
+    context = {'tasks': tasks}
+    return render(request, 'home.html', context)
 
 def signupPage(request):
     if request.method == "POST":
@@ -160,11 +164,11 @@ def change_password(request):
 
 @login_required
 def remove_profile_picture(request):
-    if request.user.profile.picture:
-        picture_path = request.user.profile.picture.path
+    if request.user.profile.profile_image:
+        picture_path = request.user.profile.profile_image.path
         if os.path.exists(picture_path):
             os.remove(picture_path)
-        request.user.profile.picture = None
+        request.user.profile.profile_image = None
         request.user.profile.save()
     return redirect('profile')
 

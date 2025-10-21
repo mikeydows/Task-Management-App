@@ -11,18 +11,18 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 600;
+form label{
+  margin-bottom: 0px;
+  font-weight: bold;
   color: #333;
+  text-align: center;
 }
 
 
 form input, form textarea, form select {
-  width: 90%;
+  width: 70%;
   padding: 10px;
-  margin: 15px auto;
+  margin: 5px auto;
   display: flex;
   justify-content: center;
   border: 1px solid #ccc;
@@ -37,6 +37,37 @@ form button {
   border-radius: 6px;
   cursor: pointer;
   width: 100%;
+}
+
+.add{
+  margin: 100px auto;
+  width: 40%;
+  color: white;
+  background-color: rgb(29, 28, 28);
+  font-size: 1.2em;
+  padding: 50px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.add a{
+  color: white;
+  text-decoration: underline;
+}
+
+@media(max-width: 850px){
+
+  .form_container{
+    margin-top: 30px;
+  }
+  .linkk{
+    width: 70;
+  }
+
+  .linkk a{
+    width: 95%;
+    font-size: 1em;
+  }
 }
     
 </style>    
@@ -56,18 +87,14 @@ form button {
         </select>
         <br>
         <input type="submit" id="submit" value="Add Task">
+        <div class="linkk">
+          <a href="{% url 'home' %}">Back</a>
+        </div>
     </form>
 </div>
 {% else %}
-<div 
-style="box-shadow: 0 0 2px 0.8px;
-        width: 150px;
-        text-align: center;
-        align-items: center;
-        font-weight: bold;
-        padding: 20px;
-        margin: 200px auto;
-        border-radius: 10px;">
+
+<div class="add">
     <p><a href="{% url 'login' %}">Login</a> before adding task</p>
 
 </div>
