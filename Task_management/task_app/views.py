@@ -15,7 +15,7 @@ def home(request):
         tasks = Task.objects.filter(user=request.user)
 
     context = {'tasks': tasks}
-    return render(request, 'index.html', context)
+    return render(request, 'home.html', context)
 
 def signupPage(request):
     if request.method == "POST":
