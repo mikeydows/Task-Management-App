@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-sgu$ppt-k1z4s6*svc4$6q-7r==esp#(gv#qz@@g3$(-e4a_cb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mickeydows.pythonanywhere.com', 'www.mickeydows.pythonanywhere.com', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
