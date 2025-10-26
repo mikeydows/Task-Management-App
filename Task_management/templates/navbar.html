@@ -117,16 +117,17 @@ nav ul li{
             <li>
                 <div class="profile">
                     {% if user.is_authenticated %}
-                        {% if user.profile.profile_image.url %}
-                        <img src="{{ user.profile.profile_image.url }}" alt="Profile" width="40" height="40" style="border-radius: 50%;">
+                        {% if user.profile.profile_image and user.profile.profile_image.name %}
+                            <img src="{{ user.profile.profile_image.url }}" alt="Profile" width="40" height="40" style="border-radius: 50%;">
                         {% else %}
-                        <img src="{% static 'image/user.jpg' %}" alt="">
+                            <img src="{% static 'image/user.jpg' %}" alt="Default Profile" width="40" height="40" style="border-radius: 50%;">
                         {% endif %}
-                        <a id="profile" href="{% url 'profile' %}" style="color: black; background-color: transparent;"> {{ user.first_name }}</a>
+                        <a id="profile" href="{% url 'profile' %}" style="color: black; background-color: transparent;">{{ user.first_name }}</a>
                     {% else %}
                         <a id="log" href="{% url 'login' %}">Login</a>
                         <a id="sign" href="{% url 'signup' %}">SignUp</a>
                     {% endif %}
+
                 </div>
             </li>
         </ul>

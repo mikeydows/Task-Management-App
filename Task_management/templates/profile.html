@@ -88,7 +88,7 @@
             {% if user.profile.profile_image %}
             <label for="">Change Profile Picture</label><br>
             <input id="file" type="file" name="profile_image"><br>
-            <input type="submit" value="Change Profile Image" id="submitbtn">
+            <input type="submit" value="Change Profile Image" id="submitbtn"><br><br>
             <a id="submitbtn" href="{% url 'remove_profile_picture' %}">Remove Profile Picture</a>
             {% else %}
             <input id="file" type="file" name="profile_image"><br>
