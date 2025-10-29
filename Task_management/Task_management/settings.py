@@ -130,3 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SESSION_COOKIE_NAME = 'user_sessionid'
+
+LOGIN_URL = '/login/'
+

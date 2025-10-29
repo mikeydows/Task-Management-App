@@ -121,7 +121,10 @@ def complete_task(request, task_id):
     task.save()
     return redirect('home')
 
+@login_required
 def completed_task(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     completed = Task.objects.filter(user = request.user, completed=True)
     return render(request, 'completed_task.html', {'tasks': completed})
 
